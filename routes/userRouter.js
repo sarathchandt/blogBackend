@@ -3,7 +3,9 @@ import {
     signup,
     checkLogin,
     submitPost,
-    getPosts
+    getPosts,
+    deleteIt,
+    takeUser
 } from "../controllers/userControllers.js"
 
 import {
@@ -19,7 +21,8 @@ router.post('/signup',signup);
 router.get('/checkLogin',verifyToken,checkLogin);
 router.post('/submitPost',verifyToken,submitPost);
 router.get('/getPosts',verifyToken,getPosts)
-
+router.post('/deleteIt',verifyToken,deleteIt)
+router.get('/takeUser',verifyToken,takeUser)
 
 
 export default router 

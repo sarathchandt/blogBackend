@@ -62,6 +62,36 @@ export async function submitPost(req, res){
     }
 }
 
-export function getPosts(req, res){
+export async function getPosts(req, res){
+    try {
+        let user = await User.findOne({email:res.locals.userId});
+        await Posts.find({user:user._id}).then(result=>{
+            res.json(result).status(200)
+        })
+    } catch (error) {
+        res.status(500).json({something_wnt_wrong : true});
+    }
+   
+}
 
+export async function deleteIt(req, res){
+    try {
+        console.log(req.body);
+        await Posts.deleteOne({_id:req.body.id}).then(result=>{
+            res.status(200).json({deleted:true})
+        })
+    } catch (error) {
+        res.status(500).json({something_wnt_wrong : true});
+    }
+}
+
+export async function takeUser(req, res){
+    try {
+        await User.findOne({email:res.locals.userId}).then(result=>{
+            res.status(200).json({name:result.fullName, email:result.email})
+        })
+    } catch (error) {
+        res.status(500).json({something_wnt_wrong : true});
+
+    }
 }
